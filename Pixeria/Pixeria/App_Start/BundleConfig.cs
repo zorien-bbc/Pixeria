@@ -24,7 +24,8 @@ namespace Pixeria
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootswatch/yeti/bootstrap.min.css",
+                "~/Content/bootstrap.min.css",
+                "~/Content/bootswatch/yeti/bootstrap.min.css",
                       "~/Content/site.css", "~/Content/style.css"));
         }
     }
