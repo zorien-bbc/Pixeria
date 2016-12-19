@@ -21,7 +21,7 @@ namespace Pixeria.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Upload(string Titel,HttpPostedFileBase file)
+        public ActionResult Upload(string Titel, HttpPostedFileBase file)
         {
             if (string.IsNullOrEmpty(Titel))
             {
@@ -148,11 +148,13 @@ namespace Pixeria.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Dokument dokument = db.Dokument.Find(id);
-            var test = Path.GetTempPath() + dokument.Pfad;
-            System.IO.File.Delete(test);
+            var shortPath = dokument.Pfad;
+            shortPath = shortPath.Replace("..", "");
+            var path = Server.MapPath(shortPath);
+            System.IO.File.Delete(path);
             db.Dokument.Remove(dokument);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home",null);
         }
 
         protected override void Dispose(bool disposing)
