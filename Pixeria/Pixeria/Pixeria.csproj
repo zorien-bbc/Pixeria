@@ -331,17 +331,20 @@
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Dokument\Create.cshtml" />
     <Content Include="Views\Dokument\Delete.cshtml" />
     <Content Include="Views\Dokument\Details.cshtml" />
     <Content Include="Views\Dokument\Edit.cshtml" />
-    <Content Include="Views\Dokument\Index.cshtml" />
+    <Content Include="Views\Dokument\Upload.cshtml" />
     <Content Include="Views\Kommentar\Create.cshtml" />
     <Content Include="Views\Kommentar\Delete.cshtml" />
     <Content Include="Views\Kommentar\Details.cshtml" />
     <Content Include="Views\Kommentar\Edit.cshtml" />
     <Content Include="Views\Kommentar\Index.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\Dokument\Index.cshtml" />
+    <Content Include="Views\User\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

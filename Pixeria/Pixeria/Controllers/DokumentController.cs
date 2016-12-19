@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Pixeria.Models;
+using System.IO;
 
 namespace Pixeria.Controllers
 {
@@ -15,11 +16,43 @@ namespace Pixeria.Controllers
         private Entities db = new Entities();
 
         // GET: Dokument
-        public ActionResult Index()
+        public ActionResult Upload()
         {
-            var dokument = db.Dokument.Include(d => d.User);
-            return View(dokument.ToList());
+            return View();
         }
+        [HttpPost]
+        public ActionResult Upload(string Titel,HttpPostedFileBase file)
+        {
+            if (string.IsNullOrEmpty(Titel))
+            {
+                ModelState.AddModelError("TitelError", "Titel is required");
+            }
+            if (file != null && file.ContentLength > 0)
+            {
+                User user = db.User.ToList().Where(x => x.Username == Session["user"].ToString()).First();
+                Dokument dokument = new Dokument();
+                dokument.Titel = Titel;
+                dokument.Pfad = "";
+                dokument.UserId = user.Id;
+                db.Dokument.Add(dokument);
+                db.SaveChanges();
+                var extension = Path.GetExtension(file.FileName);
+                var fileName = dokument.Titel + dokument.Id + extension;
+                dokument.Pfad = "../resources/img/" + fileName;
+                db.Entry(dokument).State = EntityState.Modified;
+                db.SaveChanges();
+                var path = Path.Combine(Server.MapPath("~/resources/img/"), fileName);
+                file.SaveAs(path);
+            }
+            else
+            {
+                ModelState.AddModelError("FileError", "File is required");
+            }
+
+
+            return View("Upload");
+        }
+
 
         // GET: Dokument/Details/5
         public ActionResult Details(int? id)
@@ -115,6 +148,8 @@ namespace Pixeria.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Dokument dokument = db.Dokument.Find(id);
+            var test = Path.GetTempPath() + dokument.Pfad;
+            System.IO.File.Delete(test);
             db.Dokument.Remove(dokument);
             db.SaveChanges();
             return RedirectToAction("Index");
