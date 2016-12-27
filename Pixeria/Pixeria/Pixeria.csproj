@@ -308,7 +308,9 @@
       <DependentUpon>PixeriaModel.edmx</DependentUpon>
       <LastGenOutput>PixeriaModel.cs</LastGenOutput>
     </Content>
+    <Content Include="resources\img\bg.jpg" />
     <Content Include="resources\img\geld.jpg" />
+    <Content Include="resources\js\jquery.interactive_bg.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
