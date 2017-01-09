@@ -38,17 +38,30 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    @if (!Request.Url.AbsoluteUri.ToString().Contains("Home/Welcome"))
+    {
+        <div class="container body-content">
+
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Pixeria</p>
+            </footer>
+        </div>
+    }
+    else
+    {
         @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Pixeria</p>
         </footer>
-    </div>
+    }
+
 
     @Scripts.Render("~/bundles/bootstrap")
-        @Scripts.Render("~/bundles/modernizr")
-        @Scripts.Render("~/bundles/welcome")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/welcome")
     @RenderSection("scripts", required: false)
 </body>
 </html>

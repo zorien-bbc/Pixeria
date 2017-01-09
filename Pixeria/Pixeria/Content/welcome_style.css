@@ -1,0 +1,44 @@
+﻿html {
+        height: 100%;
+    }
+
+    body {
+        padding: 0;
+        text-align: center;
+        font-family: 'open sans';
+        margin: 0px;
+        padding:0px;
+        height: 100%;
+        color:white;
+    }
+
+    .wrapper {
+        height: auto !important;
+        height: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .main {
+        float: right;
+        width: 100%;
+        margin: 5% 0;
+    }
+
+
+    .bg {
+        float:right;
+        position: absolute;
+        min-height: 100% !important;
+        width: 100%;
+        z-index: 0;
+    }
+
+    .ibg-bg {
+        position: absolute;
+    }
+
+    .main {
+        position: relative;
+    }
+ 

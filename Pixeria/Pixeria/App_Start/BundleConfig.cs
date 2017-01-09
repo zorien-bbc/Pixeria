@@ -30,6 +30,9 @@ namespace Pixeria
                 "~/Content/bootstrap.min.css",
                 "~/Content/bootswatch/yeti/bootstrap.min.css",
                       "~/Content/site.css", "~/Content/style.css"));
+
+            bundles.Add(new StyleBundle("~/Content/welcomecss").Include(
+                "~/Content/welcome_style.css"));
         }
     }
 }
