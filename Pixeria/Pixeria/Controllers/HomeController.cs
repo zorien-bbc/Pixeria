@@ -18,7 +18,10 @@ namespace Pixeria.Controllers
             var dokument = db.Dokument.Include(d =>d.User);
             return View(dokument.ToList());
         }
-
+        public ActionResult Welcome()
+        {
+            return View();
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
