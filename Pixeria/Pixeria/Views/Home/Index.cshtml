@@ -78,6 +78,7 @@
             },
             success: function (response) {
                 if (response == 'New') {
+                $("#row").load(document.URL + "#row");
                     $("like"+id).html="<span id='like'+id class='glyphicon glyphicon-heart' aria-hidden='true'></span>"
                 }
                 else if (response == 'Del')
