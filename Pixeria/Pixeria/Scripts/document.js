@@ -31,24 +31,26 @@
 }
 
 function subComment(id, e) {
-    var textBox = document.getElementById("comment" + id).value;
+    var textBox = document.getElementById("comment" + id);
+    var text = textBox.value;
     if (textBox != '') {
         if (e.keyCode == 13) {
             var doc = document.getElementById("commentDiv" + id);
-            doc.append("<span>@comment.User.Username :"+ textBox +"</span><br />");
-            //$.ajax({
-            //    url: $("#CommentURL").val(),
-            //    type: "POST",
-            //    dataType: "json",
-            //    data: {
-            //        id: id,
-            //        text:textBox
-            //    },
-            //    error: function (response) {
-            //        if (!response.Success)
-            //            alert("Kommentieren Fehlgeschlagen");
-            //    }
-            //});
+            doc.innerHTML += "<span>" + $("#UserName").val() + " : " + text + "</span><br />";
+            textBox.value = '';
+            $.ajax({
+                url: $("#CommentURL").val(),
+                type: "POST",
+                dataType: "json",
+                data: {
+                    id: id,
+                    text:text
+                },
+                error: function (response) {
+                    if (!response.Success)
+                        alert("Kommentieren Fehlgeschlagen");
+                }
+            });
         }
     }
 }

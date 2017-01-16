@@ -5,8 +5,12 @@
     var liked = false;
 }
 <div class="panel-body" style="position:relative">
-        @Html.Hidden("LikeURL", Url.Action("Like", "Like"))
-        @Html.Hidden("CommentURL", Url.Action("Kommentieren", "Kommentar"))
+    @Html.Hidden("LikeURL", Url.Action("Like", "Like"))
+    @Html.Hidden("CommentURL", Url.Action("Kommentieren", "Kommentar"))
+    @*@if (Session["user"] != null)
+        {
+            @Html.Hidden("UserName", @Session["user"].ToString())
+        }*@
     <div class="bs-example"
          data-example-id="thumbnails-with-custom-content">
         <div class="row" style="margin-bottom:50px;">
@@ -115,5 +119,8 @@
     <button type="button" data-target="#uploadModal" data-toggle="modal" class="btn btn-danger btn-circle"><i class="glyphicon glyphicon-plus"></i></button>
 </div>
 <div id="uploadModal" class="modal fade">
-    @Html.Action("Upload", "Dokument")
+    @if (Session["user"] != null)
+    {
+        @Html.Action("Upload", "Dokument")
+    }
 </div>

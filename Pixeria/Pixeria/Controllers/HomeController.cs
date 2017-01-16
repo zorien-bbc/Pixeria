@@ -16,7 +16,6 @@ namespace Pixeria.Controllers
         public ActionResult Index()
         {
             var dokument = db.Dokument.Include(d =>d.User);
-            Session["user"] = "admin";
             return View(dokument.ToList());
         }
         public ActionResult Welcome()
