@@ -7,10 +7,10 @@
 <div class="panel-body" style="position:relative">
     @Html.Hidden("LikeURL", Url.Action("Like", "Like"))
     @Html.Hidden("CommentURL", Url.Action("Kommentieren", "Kommentar"))
-    @*@if (Session["user"] != null)
+    @if (Session["user"] != null)
         {
             @Html.Hidden("UserName", @Session["user"].ToString())
-        }*@
+        }
     <div class="bs-example"
          data-example-id="thumbnails-with-custom-content">
         <div class="row" style="margin-bottom:50px;">

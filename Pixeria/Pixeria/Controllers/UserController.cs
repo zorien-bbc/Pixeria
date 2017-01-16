@@ -76,18 +76,27 @@ namespace Pixeria.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register([Bind(Include = "Id,Username,Passwd")] User user)
+        public ActionResult Register([Bind(Include = "Id,Username,Passwd,PasswdRepeat")] User user)
         {
             if (UserAlreadyExists(user.Username))
             {
-                ModelState.AddModelError("", "Username already exists");
+                ModelState.AddModelError("", "Username existiert bereits");
                 return View("Register");
             }
             if (ModelState.IsValid)
             {
-                db.User.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (user.Passwd.Equals(user.PasswdRepeat))
+                {
+                    db.User.Add(user);
+                    db.SaveChanges();
+                    Session["user"] = user.Username;
+                    return RedirectToAction("Welcome", "Home", null);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Passwörter stimmen nicht überein");
+                    return View("Register");
+                }
             }
 
             return View(user);

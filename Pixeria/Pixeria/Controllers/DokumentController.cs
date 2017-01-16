@@ -142,10 +142,8 @@ namespace Pixeria.Controllers
             return View(dokument);
         }
 
-        // POST: Dokument/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+
+        public JsonResult DeleteConfirmed(int id)
         {
             Dokument dokument = db.Dokument.Find(id);
             var shortPath = dokument.Pfad;
@@ -154,7 +152,7 @@ namespace Pixeria.Controllers
             System.IO.File.Delete(path);
             db.Dokument.Remove(dokument);
             db.SaveChanges();
-            return RedirectToAction("Index", "Home", null);
+            return Json("ok");
         }
 
         protected override void Dispose(bool disposing)
