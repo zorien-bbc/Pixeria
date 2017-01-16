@@ -25,6 +25,10 @@
                 <h4>Passwort</h4>
                 @Html.PasswordFor(model => model.Passwd, new { htmlAttributes = new { @class = "" } })
                 @Html.ValidationMessageFor(model => model.Passwd, "", new { @class = "text-danger" })
+
+                <h4>Passwort wiederhohlen</h4>
+                @Html.PasswordFor(model => model.PasswdRepeat, new { htmlAttributes = new { @class = "" } })
+                @Html.ValidationMessageFor(model => model.Passwd, "", new { @class = "text-danger" })
             </div>
         </div>
 
