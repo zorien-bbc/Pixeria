@@ -16,8 +16,12 @@ namespace Pixeria.Controllers
 
         public ActionResult Profile()
         {
-            User user = db.User.ToList().Where(x => x.Username == Session["user"].ToString()).First();
-            return View(user.Dokument);
+            if (Session["user"] != null)
+            {
+                User user = db.User.ToList().Where(x => x.Username == Session["user"].ToString()).First();
+                return View(user.Dokument);
+            }
+            return View();
         }
         public ActionResult Login()
         {
