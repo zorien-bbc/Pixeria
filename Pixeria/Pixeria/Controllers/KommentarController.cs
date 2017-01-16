@@ -17,7 +17,6 @@ namespace Pixeria.Controllers
         public JsonResult Kommentieren(int id,string text)
         {
             int userId = db.User.ToList().Where(x => x.Username == Session["user"].ToString()).Select(x => x.Id).First();
-            string status;
             Kommentar kommentar = new Kommentar();
             kommentar.Text = text;
             kommentar.UserId = userId;
