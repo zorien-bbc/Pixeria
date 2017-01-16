@@ -54,3 +54,19 @@ function subComment(id, e) {
         }
     }
 }
+function deleteDocument(id) {
+    $.ajax({
+        url: $("#DeleteLink").val(),
+        type: "POST",
+        dataType: "json",
+        data: {
+            id: id
+        },
+        error: function (response) {
+            if (!response.Success)
+                alert("Delete Fehlgeschlagen");
+        }, success: function (data) {
+            location.reload(true);
+        }
+    });
+}

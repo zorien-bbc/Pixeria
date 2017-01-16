@@ -6,6 +6,7 @@
 }
 @if (Session["user"] != null)
 {
+    @Html.Hidden("DeleteLink", Url.Action("DeleteConfirmed", "Dokument"))
     <h2>Profile</h2>
     <div class="row">
         @foreach (var item in Model)
@@ -30,12 +31,12 @@
                     <h3>@item.Titel</h3>
                    
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal@(item.Id)">
                             Delete
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal fade" id="myModal@(item.Id)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -44,7 +45,7 @@
                                     </div>
                                                          <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
-                                        @Html.ActionLink("Delete", "Delete", "Dokument", new { id = item.Id }, new { @class = "btn btn-danger" })
+                                        <button onclick="deleteDocument(@item.Id)" class="btn btn-danger">Delete</button>
 </div>
                                 </div>
                             </div>
