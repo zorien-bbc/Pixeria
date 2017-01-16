@@ -4,3 +4,35 @@
 .thumbnail > img {
     width: 100%;
 }
+
+.thumbnail.right-caption > img {
+    float: left;
+    margin-right: 9px;
+}
+
+.thumbnail.right-caption {
+    float: left;
+}
+
+    .thumbnail.right-caption > .caption {
+        padding: 4px;
+    }
+
+.top_right_corner {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.btn-circle {
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 24px;
+    line-height: 1.33;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}

@@ -311,6 +311,7 @@
     </Content>
     <Content Include="resources\img\bg.jpg" />
     <Content Include="resources\img\geld.jpg" />
+    <Content Include="Scripts\document.js" />
     <Content Include="Scripts\jquery.interactive_bg.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -372,11 +373,6 @@
     <Content Include="Views\Dokument\Details.cshtml" />
     <Content Include="Views\Dokument\Edit.cshtml" />
     <Content Include="Views\Dokument\Upload.cshtml" />
-    <Content Include="Views\Kommentar\Create.cshtml" />
-    <Content Include="Views\Kommentar\Delete.cshtml" />
-    <Content Include="Views\Kommentar\Details.cshtml" />
-    <Content Include="Views\Kommentar\Edit.cshtml" />
-    <Content Include="Views\Kommentar\Index.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Dokument\Index.cshtml" />
@@ -385,7 +381,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Like\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
