@@ -18,7 +18,7 @@ namespace Pixeria.Controllers
         // GET: Dokument
         public ActionResult Upload()
         {
-            return View();
+            return PartialView();
         }
         [HttpPost]
         public ActionResult Upload(string Titel, HttpPostedFileBase file)
@@ -50,7 +50,7 @@ namespace Pixeria.Controllers
             }
 
 
-            return View("Upload");
+            return RedirectToAction("Index","Home",null);
         }
 
 
@@ -155,26 +155,6 @@ namespace Pixeria.Controllers
             db.Dokument.Remove(dokument);
             db.SaveChanges();
             return RedirectToAction("Index", "Home", null);
-        }
-        public JsonResult Like(int id)
-        {
-            int userId = db.User.ToList().Where(x => x.Username == Session["user"].ToString()).Select(x => x.Id).First();
-            string status;
-            if (db.Like.Where(x => x.DokumentId == id && x.UserId == userId).Count() == 0)
-            {
-                status = "New";
-                Like like = new Like();
-                like.DokumentId = id;
-                like.UserId = userId;
-                db.Like.Add(like);
-            }
-            else
-            {
-                status = "Del";
-                db.Like.Remove(db.Like.Where(x => x.DokumentId == id && x.UserId == userId).First());
-            }
-            db.SaveChanges();
-            return Json(status);
         }
 
         protected override void Dispose(bool disposing)

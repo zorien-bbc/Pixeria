@@ -24,7 +24,8 @@ namespace Pixeria
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/welcome").Include(
-                      "~/Scripts/jquery.interactive_bg.js"));
+                      "~/Scripts/jquery.interactive_bg.js",
+                      "~/Scripts/document.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.min.css",

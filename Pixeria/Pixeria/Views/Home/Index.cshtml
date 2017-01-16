@@ -4,88 +4,116 @@
     var ImageExtensions = new List<string> { ".jpg", ".jpe", ".bmp", ".gif", ".png" };
     var liked = false;
 }
-<div class="panel-body">
+<div class="panel-body" style="position:relative">
+        @Html.Hidden("LikeURL", Url.Action("Like", "Like"))
+        @Html.Hidden("CommentURL", Url.Action("Kommentieren", "Kommentar"))
     <div class="bs-example"
          data-example-id="thumbnails-with-custom-content">
-        <div class="row">
+        <div class="row" style="margin-bottom:50px;">
             @foreach (var item in Model)
             {
                 <div class="col-md-offset-2 col-md-8">
-                    <div class="thumbnail">
+                    <a href="#" class="thumbnail">
                         @if (ImageExtensions.Contains(Path.GetExtension(item.Pfad).ToLower()))
                         {
-                            <img src="@item.Pfad" alt="@item.Titel" id="img" onclick="showDokumentInfo(@item.Id)">
+                            <img src="@item.Pfad" alt="..." data-toggle="modal" data-target="#myModal@(item.Id)">
                         }
                         else
                         {
-                            <video src="@item.Pfad" controls style="width:100%;height:100%">
+
+                            <div class="top_right_corner" style="margin-right:30px;margin-top:10px"><span class="glyphicon glyphicon-film" aria-hidden="true"></span></div>
+                            <video src="@item.Pfad" style="width:99%;height:100%" data-toggle="modal" data-target="#myModal@(item.Id)">
                                 Ihr Browser kann dieses Video nicht wiedergeben.
                                 <br />
                                 Dieser Film zeigt eine Demonstration des video-Elements.
                                 Sie können ihn unter
-                                <a href="#">Link-Addresse</a> abrufen.
+                                abrufen.
                             </video>
                         }
-                        @if (Session["user"] != null)
-                        {
-                            <div class="caption">
-                                <h3>@item.Titel</h3>
-                                <p>
-                                    <a href="#" onclick="likeDokument(@item.Id)" class="btn btn-primary" role="button">
-                                        @{liked = false;
-                                            foreach (var like in item.Like)
-                                            {
-                                                if (like.User.Username == Session["user"].ToString())
-                                                {
-                                                    liked = true;
-                                                }
-                                            }
-                                            if (liked)
-                                            {
-                                                <span id="like"+@item.Id class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                                            }
-                                            else
-                                            {
-                                                <span id="like"+@item.Id class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
-                                            }
-                                        }
-                                    </a> <a href="#" class="btn btn-default" role="button">Kommentieren</a>
-                                </p>
+                    </a>
+                </div>
+                <div class="modal fade" id="myModal@(item.Id)" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel">
+
+                    <button class="top_right_corner" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <div class="modal-dialog" role="document" style="width:80%;height:80%;">
+                        <div class="modal-content" style="height:100%">
+                            <div id="left" style="float:left;width:65%;height:100%">
+                                @if (ImageExtensions.Contains(Path.GetExtension(item.Pfad).ToLower()))
+                                {
+                                    <img src="@item.Pfad" alt="@item.Titel" id="img" onclick="showDokumentInfo(@item.Id)" style="width:98%;height:100%">
+                                }
+                                else
+                                {
+                                    <video src="@item.Pfad" controls style="width:99%;height:100%">
+                                        Ihr Browser kann dieses Video nicht wiedergeben.
+                                        <br />
+                                        Dieser Film zeigt eine Demonstration des video-Elements.
+                                        Sie können ihn unter
+                                        <a href="#">Link-Addresse</a> abrufen.
+                                    </video>
+                                }
                             </div>
-                                            }
+                            <div style="float:right;width:35%;height:100%">
+                                <h3>@item.Titel</h3>
+                                <hr style="margin-right:5px;" />
+                                <span id="count@(item.Id)">Gefällt: @item.Like.Count()</span>
+                                <div id="commentDiv@(item.Id)" class="comments" style="overflow-y:scroll">
+                                    @foreach (var comment in item.Kommentar)
+                                    {
+                                        <span>@comment.User.Username : @comment.Text</span><br />
+                                    }
+                                </div>
+                                @if (Session["user"] != null)
+                                {
+                                    <div class="input-group" style="position:absolute;bottom:0;margin-bottom:5px;width:35%">
+                                        <span class="input-group-btn" style="margin-right:5px">
+                                            <a id="like@(item.Id)" onclick="likeDokument(@item.Id,@item.Like.Count())" class="btn btn-primary" role="button">
+
+                                                @{liked = false;
+                                                    foreach (var like in item.Like)
+                                                    {
+                                                        if (like.User.Username == Session["user"].ToString())
+                                                        {
+                                                            liked = true;
+                                                        }
+                                                    }
+                                                    if (liked)
+                                                    {
+                                                        <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+                                                    }
+                                                }
+                                            </a>
+                                        </span>
+                                        <input id="comment@(item.Id)" type="text" style="width:100%;margin-left:5px" class="form-control" placeholder="Ihr Kommentar" onkeydown="subComment(@item.Id,event)" />
+                                    </div>
+                                                    }
+                            </div>
+
+                            <div style="clear: both;"></div>
+
+                        </div>
+                        @{ var pos = Model.ToList().IndexOf(item);}
+                        @if (pos > 0)
+                        {
+                            <button style="position: fixed; margin: auto;left: 0;top: 0;bottom: 0;"><span style="width:70px;height:70px" class="glyphicon glyphicon-arrow-left"></span></button>
+                            <a href="" data-target="#myModal@(Model.ElementAt(pos-1).Id)" data-toggle="modal" data-dismiss="modal">Previous</a>}
+                        @if (pos + 1 < Model.Count())
+                        {
+                            <a href="" data-target="#myModal@(Model.ElementAt(pos + 1).Id)" data-toggle="modal" data-dismiss="modal">Next</a>
+                        }
+
                     </div>
                 </div>
-                                            }
+                            }
         </div>
     </div>
+    <button type="button" data-target="#uploadModal" data-toggle="modal" class="btn btn-danger btn-circle"><i class="glyphicon glyphicon-plus"></i></button>
 </div>
-<script>
-    function showDokumentInfo(id) {
-        var url = '@Url.Action("Details", "Dokument", new { id = "__id__" })';
-        window.location.href = url.replace('__id__', id);
-    }
-    function likeDokument(id) {
-         $.ajax({
-        url: "@Url.Action("Like", "Dokument")",
-             type: "POST",
-             dataType: "json",
-            data: {
-                id:id
-            },
-            error: function (response) {
-                if (!response.Success)
-                    alert("Like Fehlgeschlagen");
-            },
-            success: function (response) {
-                if (response == 'New') {
-                $("#row").load(document.URL + "#row");
-                    $("like"+id).html="<span id='like'+id class='glyphicon glyphicon-heart' aria-hidden='true'></span>"
-                }
-                else if (response == 'Del')
-                    $("like" + id).html = "<span id='like'+id class='glyphicon glyphicon-heart-empty' aria-hidden='true'></span>"
-            }
-        });
-        @*var url = '@Url.Action("Like", "Dokument", new { id = "__id__" })';
-        window.location.href = url.replace('__id__', id);*@
-    }
-</script>
+<div id="uploadModal" class="modal fade">
+    @Html.Action("Upload", "Dokument")
+</div>
