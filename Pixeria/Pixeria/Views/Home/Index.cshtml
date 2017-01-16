@@ -104,11 +104,14 @@
                         @{ var pos = Model.ToList().IndexOf(item);}
                         @if (pos > 0)
                         {
-                            <button style="position: fixed; margin: auto;left: 0;top: 0;bottom: 0;"><span style="width:70px;height:70px" class="glyphicon glyphicon-arrow-left"></span></button>
-                            <a href="" data-target="#myModal@(Model.ElementAt(pos-1).Id)" data-toggle="modal" data-dismiss="modal">Previous</a>}
+                            @*<button class="btn-primary-outline" style="position: fixed; margin: auto;left: 0;top: 0;bottom: 0;"><span style="width:70px;height:70px" class="glyphicon glyphicon-arrow-left"></span></button>*@
+                            
+                            <a href="" data-target="#myModal@(Model.ElementAt(pos-1).Id)" data-toggle="modal" data-dismiss="modal"><div class="feedarrowcontainerleft"><img width="90" height="90" src="/resources/img/back.svg"></div></a>
+                            @*<a href="" data-target="#myModal@(Model.ElementAt(pos-1).Id)" data-toggle="modal" data-dismiss="modal">Previous</a>*@}
                         @if (pos + 1 < Model.Count())
                         {
-                            <a href="" data-target="#myModal@(Model.ElementAt(pos + 1).Id)" data-toggle="modal" data-dismiss="modal">Next</a>
+                            <a class="feedarrowcontainerright" href="" data-target="#myModal@(Model.ElementAt(pos + 1).Id)" data-toggle="modal" data-dismiss="modal"><div class="feedarrowcontainerright"><img width="90" height="90" src="/resources/img/next.svg"></div></a>
+                            
                         }
 
                     </div>

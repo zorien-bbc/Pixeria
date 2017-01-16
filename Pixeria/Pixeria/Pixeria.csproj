@@ -275,7 +275,6 @@
     <Content Include="Content\bootswatch\yeti\bootstrap.css" />
     <Content Include="Content\bootswatch\yeti\bootstrap.min.css" />
     <Content Include="Content\style.css" />
-    <Content Include="Content\welcome_style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -309,9 +308,10 @@
       <DependentUpon>PixeriaModel.edmx</DependentUpon>
       <LastGenOutput>PixeriaModel.cs</LastGenOutput>
     </Content>
+    <Content Include="resources\img\back.svg" />
     <Content Include="resources\img\bg.jpg" />
     <Content Include="resources\img\geld.jpg" />
-    <Content Include="Scripts\document.js" />
+    <Content Include="resources\img\next.svg" />
     <Content Include="Scripts\jquery.interactive_bg.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -373,6 +373,11 @@
     <Content Include="Views\Dokument\Details.cshtml" />
     <Content Include="Views\Dokument\Edit.cshtml" />
     <Content Include="Views\Dokument\Upload.cshtml" />
+    <Content Include="Views\Kommentar\Create.cshtml" />
+    <Content Include="Views\Kommentar\Delete.cshtml" />
+    <Content Include="Views\Kommentar\Details.cshtml" />
+    <Content Include="Views\Kommentar\Edit.cshtml" />
+    <Content Include="Views\Kommentar\Index.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Dokument\Index.cshtml" />
@@ -381,6 +386,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Like\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
