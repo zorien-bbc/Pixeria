@@ -5,35 +5,14 @@
 }
 @if (Session["user"] != null)
 {
-    <style>
-        .btn-file {
-            position: relative;
-            overflow: hidden;
-        }
-
-            .btn-file input[type=file] {
-                position: absolute;
-                top: 0;
-                right: 0;
-                min-width: 100%;
-                min-height: 100%;
-                font-size: 100px;
-                text-align: right;
-                /*filter: alpha(opacity = 0);*/
-                opacity: 0;
-                outline: none;
-                background: white;
-                cursor: inherit;
-                display: block;
-            }
-    </style>
-    using (Html.BeginForm("Upload", "Dokument", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
+    @Html.Hidden("UploadURL", Url.Action("Upload", "Dokument"))
+    @Html.Hidden("HomeURL", Url.Action("Index", "Home"))
+    <form enctype="multipart/form-data">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Upload</h4>
-                    </div>
+                </div>
                 <div class="modal-body">
                     @Html.AntiForgeryToken()
 
@@ -41,30 +20,32 @@
 
                         <div class="form-group">
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.Titel, new { htmlAttributes = new { @class = "form-control", @placeholder = "Titel" } })
+                                <div id="titleError"></div>
+                                @Html.EditorFor(model => model.Titel, new { htmlAttributes = new { @class = "form-control", @placeholder = "Titel", @id = "title" } })
                                 @Html.ValidationMessage("TitelError", new { @class = "label label-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-10">
+                                <div id="fileError"></div>
                                 <span class="btn btn-default btn-file">
-                                    Dokument auswählen <input type="file" name="file" class="form-control" id="file" accept="image/*,video/*" onchange="$('#imgpreview')[0].src = window.URL.createObjectURL(this.files[0])" />
+                                    Dokument auswählen <input type="file" name="file" class="form-control" id="file" accept="image/*,video/*" onchange="preview()" />
                                 </span>
-                                <input type="submit" value="Create" class="btn btn-default" />
+                                <input type="button" value="Create" class="btn btn-default" onclick="UploadDokument()" />
                             </div>
                         </div>
                         @Html.ValidationMessage("FileError", new { @class = "label label-danger" })
                         <div class="form-group">
                             <div class="col-md-10">
                                 <h3>Preview</h3>
-                                <img id="imgpreview" style="width:250px; height:250px;" />
+                                <div id="preview" class="preview"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    }
+    </form>
 }
 else
 {

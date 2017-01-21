@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Pixeria</title>
+    <link rel="icon" href="../resources/img/default.jpg">
     @Scripts.Render("~/bundles/jquery")
     @Styles.Render("~/Content/css")
 
@@ -22,6 +23,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Arbeitsprotokoll", "Arbeitsprotokoll", "Home")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (Session["user"] == null)
@@ -31,31 +33,35 @@
                     }
                     else
                     {
-                        <li>@Html.ActionLink("Logout", "Logout", "User")</li>
-                        <li>@Html.ActionLink("Profile", "Profile", "User")</li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Session["user"].ToString()<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("Profile","User")"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</a></li>
+                                <li><a href="@Url.Action("Logout","User")"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
+                            </ul>
+                        </li>
                     }
                 </ul>
             </div>
         </div>
     </div>
-    @if (!Request.Url.AbsoluteUri.ToString().Contains("Home/Welcome"))
+    @if (Request.Url.AbsoluteUri.ToString().Contains("Home/Welcome") || Request.Url.AbsoluteUri.ToString().Equals("http://pixeria.oriet-projects.ch/") || Request.Url.AbsoluteUri.ToString().Equals("http://pixeria.oriet-projects.ch/Home"))
     {
-        <div class="container body-content">
-
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - Pixeria</p>
-            </footer>
-        </div>
+    @RenderBody()
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Pixeria</p>
+    </footer>
     }
     else
     {
+    <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Pixeria</p>
         </footer>
+    </div>
     }
 
 

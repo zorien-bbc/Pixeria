@@ -297,6 +297,7 @@
     <Content Include="Models\PixeriaModel.edmx.diagram">
       <DependentUpon>PixeriaModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\FTP.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Models\PixeriaModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -310,7 +311,8 @@
     </Content>
     <Content Include="resources\img\back.svg" />
     <Content Include="resources\img\bg.jpg" />
-    <Content Include="resources\img\geld.jpg" />
+    <Content Include="resources\img\close.svg" />
+    <Content Include="resources\img\default.jpg" />
     <Content Include="resources\img\next.svg" />
     <Content Include="Scripts\jquery.interactive_bg.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -331,6 +333,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Shared\error.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -373,20 +376,15 @@
     <Content Include="Views\Dokument\Details.cshtml" />
     <Content Include="Views\Dokument\Edit.cshtml" />
     <Content Include="Views\Dokument\Upload.cshtml" />
-    <Content Include="Views\Kommentar\Create.cshtml" />
-    <Content Include="Views\Kommentar\Delete.cshtml" />
-    <Content Include="Views\Kommentar\Details.cshtml" />
-    <Content Include="Views\Kommentar\Edit.cshtml" />
-    <Content Include="Views\Kommentar\Index.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Dokument\Index.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\Home\Welcome.cshtml" />
+    <Content Include="Views\Home\Arbeitsprotokoll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Like\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

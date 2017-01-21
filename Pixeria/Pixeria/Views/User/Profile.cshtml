@@ -7,29 +7,28 @@
 @if (Session["user"] != null)
 {
     @Html.Hidden("DeleteLink", Url.Action("DeleteConfirmed", "Dokument"))
-    <h2>Profile</h2>
     <div class="row">
         @foreach (var item in Model)
         {
-        <div class="col-md-offset-2 col-md-8">
-            <div class="thumbnail">
-                @if (ImageExtensions.Contains(Path.GetExtension(item.Pfad).ToLower()))
-                {
-                    <img src="@item.Pfad" alt="@item.Titel" id="img" onclick="showDokumentInfo(@item.Id)">
-                }
-                else
-                {
-                    <video src="@item.Pfad" loop controls style="width:100%;height:100%">
-                        Ihr Browser kann dieses Video nicht wiedergeben.
-                        <br />
-                        Dieser Film zeigt eine Demonstration des video-Elements.
-                        Sie können ihn unter
-                        <a href="#">Link-Addresse</a> abrufen.
-                    </video>
-                }
-                <div class="caption">
-                    <h3>@item.Titel</h3>
-                   
+            <div class="col-md-offset-2 col-md-8">
+                <div class="thumbnail">
+                    @if (ImageExtensions.Contains(Path.GetExtension(item.Pfad).ToLower()))
+                    {
+                        <img src="@item.Pfad" alt="@item.Titel" id="img">
+                    }
+                    else
+                    {
+                        <video src="@item.Pfad" loop controls style="width:100%;height:100%">
+                            Ihr Browser kann dieses Video nicht wiedergeben.
+                            <br />
+                            Dieser Film zeigt eine Demonstration des video-Elements.
+                            Sie können ihn unter
+                            <a href="#">Link-Addresse</a> abrufen.
+                        </video>
+                    }
+                    <div class="caption">
+                        <h3>@item.Titel</h3>
+
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal@(item.Id)">
                             Delete
@@ -43,18 +42,28 @@
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         <h4 class="modal-title" id="myModalLabel">Wollen Sie diesen schönen Post wirklich löschen?</h4>
                                     </div>
-                                                         <div class="modal-footer">
+                                    <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
                                         <button onclick="deleteDocument(@item.Id)" class="btn btn-danger">Delete</button>
-</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
         }
+        @if (Model.Count() == 0)
+        {
+            <h3>Sie haben noch keine Bilder hochgeladen.</h3>
+        }
+        <button type="button" data-target="#uploadModal" data-toggle="modal" class="btn btn-danger btn-circle"><i class="glyphicon glyphicon-plus"></i></button>
+
+    </div>
+    <div id="uploadModal" class="modal fade">
+        @Html.Action("Upload", "Dokument")
+
     </div>
 }
 else

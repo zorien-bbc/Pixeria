@@ -14,7 +14,7 @@ namespace Pixeria.Controllers
     {
         private Entities db = new Entities();
 
-        public ActionResult Profile()
+        public new ActionResult Profile()
         {
             if (Session["user"] != null)
             {

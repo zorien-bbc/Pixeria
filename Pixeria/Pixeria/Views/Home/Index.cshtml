@@ -1,26 +1,26 @@
 ﻿@model IEnumerable<Pixeria.Models.Dokument>
 @{
-    ViewBag.Title = "Home Page";
-    var ImageExtensions = new List<string> { ".jpg", ".jpe", ".bmp", ".gif", ".png" };
+    ViewBag.Title = "Home";
+    var ImageExtensions = new List<string> { ".jpg", ".jpe", ".bmp", ".gif", ".png",".svg" };
     var liked = false;
 }
 <div class="panel-body" style="position:relative">
     @Html.Hidden("LikeURL", Url.Action("Like", "Like"))
     @Html.Hidden("CommentURL", Url.Action("Kommentieren", "Kommentar"))
     @if (Session["user"] != null)
-        {
-            @Html.Hidden("UserName", @Session["user"].ToString())
-        }
+    {
+        @Html.Hidden("UserName", @Session["user"].ToString())
+    }
     <div class="bs-example"
          data-example-id="thumbnails-with-custom-content">
         <div class="row" style="margin-bottom:50px;">
             @foreach (var item in Model)
             {
                 <div class="col-md-offset-2 col-md-8">
-                    <a href="#" class="thumbnail">
+                    <a href="#" class="thumbnail" style="text-decoration:none;">
                         @if (ImageExtensions.Contains(Path.GetExtension(item.Pfad).ToLower()))
                         {
-                            <img src="@item.Pfad" alt="..." data-toggle="modal" data-target="#myModal@(item.Id)">
+                            <img src="@item.Pfad" onError="this.src = '../resources/img/default.jpg'" alt="..." data-toggle="modal" data-target="#myModal@(item.Id)">
                         }
                         else
                         {
@@ -34,22 +34,25 @@
                                 abrufen.
                             </video>
                         }
+                        <div class="caption">
+                            <h3>@item.Titel</h3>
+                        </div>
                     </a>
                 </div>
-                <div class="modal fade" id="myModal@(item.Id)" tabindex="-1" role="dialog"
-                     aria-labelledby="myModalLabel">
+                <div class="modal" id="myModal@(item.Id)" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel" onkeydown="switchModal(@item.Id,event)">
 
-                    <button class="top_right_corner" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                    <div class="modal-dialog" role="document" style="width:80%;height:80%;">
+                    <a href="#" class="top_right_corner" data-dismiss="modal"><img src="../resources/img/close.svg" style="width:25px;margin-right:10px;margin-top:10px" /></a>
+                    <div class="modal-dialog modal-size" role="document">
                         <div class="modal-content" style="height:100%">
-                            <div id="left" style="float:left;width:65%;height:100%">
+                            <div id="left">
                                 @if (ImageExtensions.Contains(Path.GetExtension(item.Pfad).ToLower()))
                                 {
-                                    <img src="@item.Pfad" alt="@item.Titel" id="img" onclick="showDokumentInfo(@item.Id)" style="width:98%;height:100%">
+                                    <img src="@item.Pfad" alt="@item.Titel" id="img" class="medien" onError="this.src = '../resources/img/default.jpg'">
                                 }
                                 else
                                 {
-                                    <video src="@item.Pfad" controls style="width:99%;height:100%">
+                                    <video src="@item.Pfad" controls class="medien">
                                         Ihr Browser kann dieses Video nicht wiedergeben.
                                         <br />
                                         Dieser Film zeigt eine Demonstration des video-Elements.
@@ -58,11 +61,12 @@
                                     </video>
                                 }
                             </div>
-                            <div style="float:right;width:35%;height:100%">
+                            <div id="right">
                                 <h3>@item.Titel</h3>
                                 <hr style="margin-right:5px;" />
                                 <span id="count@(item.Id)">Gefällt: @item.Like.Count()</span>
-                                <div id="commentDiv@(item.Id)" class="comments" style="overflow-y:scroll">
+                                <hr />
+                                <div id="commentDiv@(item.Id)" class="comment">
                                     @foreach (var comment in item.Kommentar)
                                     {
                                         <span>@comment.User.Username : @comment.Text</span><br />
@@ -70,6 +74,7 @@
                                 </div>
                                 @if (Session["user"] != null)
                                 {
+                                    <hr />
                                     <div class="input-group" style="position:absolute;bottom:0;margin-bottom:5px;width:35%">
                                         <span class="input-group-btn" style="margin-right:5px">
                                             <a id="like@(item.Id)" onclick="likeDokument(@item.Id,@item.Like.Count())" class="btn btn-primary" role="button">
@@ -105,13 +110,13 @@
                         @if (pos > 0)
                         {
                             @*<button class="btn-primary-outline" style="position: fixed; margin: auto;left: 0;top: 0;bottom: 0;"><span style="width:70px;height:70px" class="glyphicon glyphicon-arrow-left"></span></button>*@
-                            
-                            <a href="" data-target="#myModal@(Model.ElementAt(pos-1).Id)" data-toggle="modal" data-dismiss="modal"><div class="feedarrowcontainerleft"><img width="90" height="90" src="/resources/img/back.svg"></div></a>
+
+                            <a id="linkleft@(item.Id)" href="" data-target="#myModal@(Model.ElementAt(pos-1).Id)" data-toggle="modal" data-dismiss="modal"><div class="feedarrowcontainerleft"><img width="90" height="90" src="/resources/img/back.svg"></div></a>
                             @*<a href="" data-target="#myModal@(Model.ElementAt(pos-1).Id)" data-toggle="modal" data-dismiss="modal">Previous</a>*@}
                         @if (pos + 1 < Model.Count())
                         {
-                            <a class="feedarrowcontainerright" href="" data-target="#myModal@(Model.ElementAt(pos + 1).Id)" data-toggle="modal" data-dismiss="modal"><div class="feedarrowcontainerright"><img width="90" height="90" src="/resources/img/next.svg"></div></a>
-                            
+                            <a id="linkright@(item.Id)" class="feedarrowcontainerright" href="" data-target="#myModal@(Model.ElementAt(pos + 1).Id)" data-toggle="modal" data-dismiss="modal"><div class="feedarrowcontainerright"><img width="90" height="90" src="/resources/img/next.svg"></div></a>
+
                         }
 
                     </div>
@@ -119,7 +124,10 @@
                             }
         </div>
     </div>
-    <button type="button" data-target="#uploadModal" data-toggle="modal" class="btn btn-danger btn-circle"><i class="glyphicon glyphicon-plus"></i></button>
+    @if (Session["user"] != null)
+    {
+        <button type="button" data-target="#uploadModal" data-toggle="modal" class="btn btn-danger btn-circle"><i class="glyphicon glyphicon-plus"></i></button>
+    }
 </div>
 <div id="uploadModal" class="modal fade">
     @if (Session["user"] != null)

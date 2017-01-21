@@ -16,9 +16,14 @@ namespace Pixeria.Controllers
         public ActionResult Index()
         {
             var dokument = db.Dokument.Include(d =>d.User);
-            return View(dokument.ToList());
+            IEnumerable<Dokument> dokumente = dokument;
+            return View(dokumente.Reverse().ToList());
         }
         public ActionResult Welcome()
+        {
+            return View();
+        }
+        public ActionResult Arbeitsprotokoll()
         {
             return View();
         }

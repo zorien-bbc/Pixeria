@@ -21,36 +21,38 @@ namespace Pixeria.Controllers
             return PartialView();
         }
         [HttpPost]
-        public ActionResult Upload(string Titel, HttpPostedFileBase file)
+        public JsonResult Upload(string Titel, HttpPostedFileBase file)
         {
             if (string.IsNullOrEmpty(Titel))
             {
-                ModelState.AddModelError("TitelError", "Titel is required");
-            }
-            if (file != null && file.ContentLength > 0)
-            {
-                User user = db.User.ToList().Where(x => x.Username == Session["user"].ToString()).First();
-                Dokument dokument = new Dokument();
-                dokument.Titel = Titel;
-                dokument.Pfad = "";
-                dokument.UserId = user.Id;
-                db.Dokument.Add(dokument);
-                db.SaveChanges();
-                var extension = Path.GetExtension(file.FileName);
-                var fileName = dokument.Titel + dokument.Id + extension;
-                dokument.Pfad = "../resources/img/" + fileName;
-                db.Entry(dokument).State = EntityState.Modified;
-                db.SaveChanges();
-                var path = Path.Combine(Server.MapPath("~/resources/img/"), fileName);
-                file.SaveAs(path);
+                return Json("Error"); 
             }
             else
             {
-                ModelState.AddModelError("FileError", "File is required");
+                if (file != null && file.ContentLength > 0)
+                {
+                    User user = db.User.ToList().Where(x => x.Username == Session["user"].ToString()).First();
+                    Dokument dokument = new Dokument();
+                    dokument.Titel = Titel;
+                    dokument.Pfad = "";
+                    dokument.UserId = user.Id;
+                    db.Dokument.Add(dokument);
+                    db.SaveChanges();
+                    var extension = Path.GetExtension(file.FileName);
+                    var fileName = dokument.Titel + dokument.Id + extension;
+                    dokument.Pfad = "../resources/img/" + fileName;
+                    db.Entry(dokument).State = EntityState.Modified;
+                    db.SaveChanges();
+                    var path = HttpContext.Server.MapPath("~/resources/img/");
+                    file.SaveAs(path + fileName);
+                }
+                else
+                {
+                    ModelState.AddModelError("FileError", "File is required");
+                   return Json("error");
+                }
             }
-
-
-            return RedirectToAction("Index","Home",null);
+            return Json("ok");
         }
 
 
@@ -147,9 +149,9 @@ namespace Pixeria.Controllers
         {
             Dokument dokument = db.Dokument.Find(id);
             var shortPath = dokument.Pfad;
-            shortPath = shortPath.Replace("..", "");
-            var path = Server.MapPath(shortPath);
-            System.IO.File.Delete(path);
+            shortPath = shortPath.Replace("../resources/img", "");
+            var path = HttpContext.Server.MapPath("~/resources/img/");
+            System.IO.File.Delete(path+shortPath);
             db.Dokument.Remove(dokument);
             db.SaveChanges();
             return Json("ok");
