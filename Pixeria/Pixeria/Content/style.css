@@ -55,7 +55,6 @@
     bottom: 0;
     margin-left: -48px;
     height: 10%;
-    width: 10%;
 }
 
 .feedarrowcontainerright {
@@ -65,8 +64,7 @@
     top: 0;
     bottom: 0;
     margin-left: 100%;
-    height: 10%;
-    width: 10%;
+    height: 10%
 }
 
 #left {
@@ -85,7 +83,6 @@
     width: 98%;
     height: 100%;
 }
-
 .comment {
     overflow-y: scroll;
     height: 50%;
