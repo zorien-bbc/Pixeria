@@ -195,3 +195,7 @@
         cursor: inherit;
         display: block;
     }
+    .modal {
+    /* ... */
+    overflow-y: scroll !important;
+}
