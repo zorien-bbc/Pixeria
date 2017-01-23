@@ -83,10 +83,6 @@
     width: 98%;
     height: 100%;
 }
-body.modal-open {
-    overflow: hidden;
-}
-
 .comment {
     overflow-y: scroll;
     height: 50%;
