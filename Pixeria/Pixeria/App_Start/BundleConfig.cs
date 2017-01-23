@@ -34,6 +34,9 @@ namespace Pixeria
 
             bundles.Add(new StyleBundle("~/Content/welcomecss").Include(
                 "~/Content/welcome_style.css"));
+
+            bundles.Add(new StyleBundle("~/Content/errorcss").Include(
+               "~/Content/error.css"));
         }
     }
 }

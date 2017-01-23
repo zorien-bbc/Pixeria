@@ -1,5 +1,5 @@
 ﻿body {
-    overflow:hidden;
+   
 }
 
 .thumbnail > img {
@@ -21,6 +21,7 @@
 
 .top_right_corner {
     position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
 }
@@ -45,7 +46,7 @@
     left: 0;
     top: 0;
     bottom: 0;
-    margin-left: -7%;
+    margin-left: -48px;
     height: 10%;
     width: 10%;
 }
@@ -89,6 +90,10 @@
     margin-left: 10%;
 }
 
+.modal-content-size {
+    height: 100%;
+}
+
 .oli {
     width: 48%;
     float: left;
@@ -99,14 +104,22 @@
     width: 48%;
     float: right;
     height: 100%;
-    margin-left:2%;
+    margin-left: 2%;
 }
-.table-cursor{
-    cursor:default;
+
+.table-cursor {
+    cursor: default;
 }
-.preview{
-    width:250px;
-    height:250px;
+
+.preview {
+    width: 250px;
+    height: 250px;
+}
+
+.close_img {
+    width: 25px;
+    margin-right: 20px;
+    margin-top: 10px;
 }
 
 @media screen and (max-width: 1480px) {
@@ -130,7 +143,7 @@
 
     .comment {
         overflow-y: scroll;
-        height: 30%;
+        height: 20%;
         width: 98%;
     }
 
@@ -144,8 +157,22 @@
         float: left;
         width: 100%;
         height: 50%;
-        margin-left:0%;
+        margin-left: 0%;
     }
+
+    .modal-size {
+        width: 80%;
+        height: 100%;
+        margin-left: 10%;
+    }
+    body{
+    }
+    .close_img {
+    width: 25px;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
 }
 
 .btn-file {
